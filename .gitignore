@@ -139,6 +139,7 @@ cython_debug/
 
 
 .idea
-/config.json
-/blacklist.json
+config.json
+blacklist.json
 cogs/normal/template-normal.py
+

@@ -5,6 +5,7 @@ import sys
 
 import aiohttp
 import disnake
+import requests
 from disnake.ext import commands
 from disnake.ext.commands import Context
 
@@ -64,6 +65,22 @@ class Lyceum(commands.Cog, name="template-normal"):
             await context.send(f"{context.author.mention} Your countdown Has ended!")
         except ValueError:
             await context.send("Must be a number!")
+
+    @commands.command(
+        name="translate",
+        description="Translates words from English language to target.",
+    )
+    @checks.not_blacklisted()
+    async def translate(self, context: Context, text: str, target_language: str):
+        res = requests.post(
+            "http://api.mymemory.translated.net/get",
+            params={
+                "q": text,
+                "langpair": f"en|{target_language}",
+                "target": target_language,
+            }).json()
+        res = res['matches'][0]['translation']
+        await context.send(f'**"{text.capitalize()}"** translation to __{target_language}__: **"{res}"**')
 
 
 def setup(bot):

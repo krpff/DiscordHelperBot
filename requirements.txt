@@ -1,3 +1,4 @@
 aiohttp
 disnake
 pymorphy2
+requests

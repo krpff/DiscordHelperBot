@@ -80,7 +80,9 @@ class Pymorphy(commands.Cog, name="pymorphy-normal"):
     @checks.not_blacklisted()
     async def alive(self, context: Context, word):
         morph = pymorphy2.MorphAnalyzer()
-        await context.send(f'Infinitive of {word} is **{str(morph.parse(word)[0].normal_form)}**')
+        await context.send(
+            f"Infinitive of {word} is **{str(morph.parse(word)[0].normal_form)}**"
+        )
 
     @commands.command(
         name="morph",
@@ -89,8 +91,10 @@ class Pymorphy(commands.Cog, name="pymorphy-normal"):
     @checks.not_blacklisted()
     async def morph(self, context: Context, word):
         morph = pymorphy2.MorphAnalyzer()
-        await context.send(f'{morph.parse(word)[0]}'
-                           f'\n\n ||Мне лень это парсить, но ведь анализ то делает||')
+        await context.send(
+            f"{morph.parse(word)[0]}"
+            f"\n\n ||Мне лень это парсить, но ведь анализ то делает||"
+        )
 
 
 def setup(bot):
