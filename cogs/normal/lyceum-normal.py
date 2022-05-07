@@ -82,6 +82,48 @@ class Lyceum(commands.Cog, name="template-normal"):
         res = res['matches'][0]['translation']
         await context.send(f'**"{text.capitalize()}"** translation to __{target_language}__: **"{res}"**')
 
+    @commands.command(
+        name="wr",
+        description="Get weather info by OpenWeatherMap.",
+    )
+    @checks.not_blacklisted()
+    async def wr(self, context: Context, city: str):
+        res = requests.post(
+            "https://api.openweathermap.org/data/2.5/weather",
+            params={
+                "q": city,
+                "appid": '2bfbdee2dcdb05262c6f58bfe4949cba',
+            }).json()
+        print(res)
+
+        if str(res['cod']) == "404":
+            await context.send("**City not found.**")
+        elif str(res['cod']) == "200":
+            embed = disnake.Embed(color=0x9C84EF)
+            embed.set_author(
+                name=f"Weather in {res['name']}",
+            )
+            embed.add_field(
+                name=":cloud: Weather",
+                value=f"{res['weather'][0]['main']}",
+                inline=False,
+            )
+            embed.add_field(
+                name=":thermometer: Temperature",
+                value=f"**{res['main']['temp']}°C**\n"
+                      f"*Feels like {res['main']['feels_like']}°C*",
+                inline=False
+            )
+            embed.add_field(
+                name=":cloud_tornado: Wind",
+                value=f"**Speed {res['wind']['speed']} m/s**\n"
+                      f"**Direction {res['wind']['deg']}°**\n"
+                      f"*Gusts {res['wind']['gust']} m/s*", inline=False
+            )
+            print(200)
+            embed.set_footer(text=f"Requested by {context.author}")
+            await context.send(embed=embed)
+
 
 def setup(bot):
     bot.add_cog(Lyceum(bot))
