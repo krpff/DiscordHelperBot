@@ -28,31 +28,14 @@ class General(commands.Cog, name="general-normal"):
     )
     @checks.not_blacklisted()
     async def botinfo(self, context: Context) -> None:
-        embed = disnake.Embed(
-            description="HelperBot v1.0",
-            color=0x9C84EF
-        )
-        embed.set_author(
-            name="Bot Information"
-        )
+        embed = disnake.Embed(description="HelperBot v1.0", color=0x9C84EF)
+        embed.set_author(name="Bot Information")
+        embed.add_field(name="Owner:", value="MicKr#6969", inline=True)
         embed.add_field(
-            name="Owner:",
-            value="MicKr#6969",
-            inline=True
+            name="Python Version:", value=f"{platform.python_version()}", inline=True
         )
-        embed.add_field(
-            name="Python Version:",
-            value=f"{platform.python_version()}",
-            inline=True
-        )
-        embed.add_field(
-            name="Prefix:",
-            value=f"**{config['prefix']}**",
-            inline=False
-        )
-        embed.set_footer(
-            text=f"Requested by {context.author}"
-        )
+        embed.add_field(name="Prefix:", value=f"**{config['prefix']}**", inline=False)
+        embed.set_footer(text=f"Requested by {context.author}")
         await context.send(embed=embed)
 
     @commands.command(
@@ -68,32 +51,16 @@ class General(commands.Cog, name="general-normal"):
         roles = ", ".join(roles)
 
         embed = disnake.Embed(
-            title="**Server Name:**",
-            description=f"{context.guild}",
-            color=0x9C84EF
+            title="**Server Name:**", description=f"{context.guild}", color=0x9C84EF
         )
-        embed.set_thumbnail(
-            url=context.guild.icon.url
-        )
+        embed.set_thumbnail(url=context.guild.icon.url)
+        embed.add_field(name="Server ID", value=context.guild.id)
+        embed.add_field(name="Member Count", value=context.guild.member_count)
         embed.add_field(
-            name="Server ID",
-            value=context.guild.id
+            name="Text/Voice Channels", value=f"{len(context.guild.channels)}"
         )
-        embed.add_field(
-            name="Member Count",
-            value=context.guild.member_count
-        )
-        embed.add_field(
-            name="Text/Voice Channels",
-            value=f"{len(context.guild.channels)}"
-        )
-        embed.add_field(
-            name=f"Roles ({len(context.guild.roles)})",
-            value=roles
-        )
-        embed.set_footer(
-            text=f"Created at: {context.guild.created_at}"
-        )
+        embed.add_field(name=f"Roles ({len(context.guild.roles)})", value=roles)
+        embed.set_footer(text=f"Created at: {context.guild.created_at}")
         await context.send(embed=embed)
 
     @commands.command(
@@ -105,7 +72,7 @@ class General(commands.Cog, name="general-normal"):
         embed = disnake.Embed(
             title="🏓 Pong! (haha)",
             description=f"The bot latency is {round(self.bot.latency * 1000)}ms.",
-            color=0x9C84EF
+            color=0x9C84EF,
         )
         await context.send(embed=embed)
 
@@ -117,7 +84,7 @@ class General(commands.Cog, name="general-normal"):
     async def invite(self, context: Context) -> None:
         embed = disnake.Embed(
             description=f"Invite me by clicking [here](https://discordapp.com/oauth2/authorize?&client_id={config['application_id']}&scope=bot+applications.commands&permissions={config['permissions']}).",
-            color=0xD75BF4
+            color=0xD75BF4,
         )
         try:
             await context.author.send(embed=embed)

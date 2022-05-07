@@ -25,10 +25,7 @@ class Owner(commands.Cog, name="owner-normal"):
     )
     @checks.is_owner()
     async def shutdown(self, context: Context):
-        embed = disnake.Embed(
-            description="Shutting down. Bye! :wave:",
-            color=0x9C84EF
-        )
+        embed = disnake.Embed(description="Shutting down. Bye! :wave:", color=0x9C84EF)
         await context.send(embed=embed)
         await self.bot.close()
 
@@ -46,46 +43,39 @@ class Owner(commands.Cog, name="owner-normal"):
     )
     @checks.is_owner()
     async def embed(self, context: Context, *, message: str):
-        embed = disnake.Embed(
-            description=message,
-            color=0x9C84EF
-        )
+        embed = disnake.Embed(description=message, color=0x9C84EF)
         await context.send(embed=embed)
 
-    @commands.group(
-        name="blacklist"
-    )
+    @commands.group(name="blacklist")
     async def blacklist(self, context: Context):
-       if context.invoked_subcommand is None:
+        if context.invoked_subcommand is None:
             with open("blacklist.json") as file:
                 blacklist = json.load(file)
             embed = disnake.Embed(
                 title=f"There are currently {len(blacklist['ids'])} blacklisted IDs",
                 description=f"{', '.join(str(id) for id in blacklist['ids'])}",
-                color=0x9C84EF
+                color=0x9C84EF,
             )
             await context.send(embed=embed)
 
-    @blacklist.command(
-        name="add"
-    )
+    @blacklist.command(name="add")
     async def blacklist_add(self, context: Context, member: disnake.Member = None):
         try:
             user_id = member.id
             with open("blacklist.json") as file:
                 blacklist = json.load(file)
-            if user_id in blacklist['ids']:
+            if user_id in blacklist["ids"]:
                 embed = disnake.Embed(
                     title="Error!",
                     description=f"**{member.name}** is already in the blacklist.",
-                    color=0xE02B2B
+                    color=0xE02B2B,
                 )
                 return await context.send(embed=embed)
             json_manager.add_user_to_blacklist(user_id)
             embed = disnake.Embed(
                 title="User Blacklisted",
                 description=f"**{member.name}** has been successfully added to the blacklist",
-                color=0x9C84EF
+                color=0x9C84EF,
             )
             with open("blacklist.json") as file:
                 blacklist = json.load(file)
@@ -97,13 +87,11 @@ class Owner(commands.Cog, name="owner-normal"):
             embed = disnake.Embed(
                 title="Error!",
                 description=f"An unknown error occurred when trying to add **{member.name}** to the blacklist.",
-                color=0xE02B2B
+                color=0xE02B2B,
             )
             await context.send(embed=embed)
 
-    @blacklist.command(
-        name="remove"
-    )
+    @blacklist.command(name="remove")
     async def blacklist_remove(self, context, member: disnake.Member = None):
         try:
             user_id = member.id
@@ -111,7 +99,7 @@ class Owner(commands.Cog, name="owner-normal"):
             embed = disnake.Embed(
                 title="User removed from blacklist",
                 description=f"**{member.name}** has been successfully removed from the blacklist",
-                color=0x9C84EF
+                color=0x9C84EF,
             )
             with open("blacklist.json") as file:
                 blacklist = json.load(file)
@@ -123,7 +111,7 @@ class Owner(commands.Cog, name="owner-normal"):
             embed = disnake.Embed(
                 title="Error!",
                 description=f"**{member.name}** is not in the blacklist.",
-                color=0xE02B2B
+                color=0xE02B2B,
             )
             await context.send(embed=embed)
 

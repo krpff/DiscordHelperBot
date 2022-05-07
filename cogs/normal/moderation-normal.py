@@ -25,13 +25,14 @@ class Moderation(commands.Cog, name="moderation-normal"):
     )
     @commands.has_permissions(kick_members=True)
     @checks.not_blacklisted()
-    async def kick(self, context: Context, member: disnake.Member, *,
-                   reason: str = "Not specified") -> None:
+    async def kick(
+        self, context: Context, member: disnake.Member, *, reason: str = "Not specified"
+    ) -> None:
         if member.guild_permissions.administrator:
             embed = disnake.Embed(
                 title="Error!",
                 description="User has Admin permissions.",
-                color=0xE02B2B
+                color=0xE02B2B,
             )
             await context.send(embed=embed)
         else:
@@ -39,12 +40,9 @@ class Moderation(commands.Cog, name="moderation-normal"):
                 embed = disnake.Embed(
                     title="User Kicked!",
                     description=f"**{member}** was kicked by **{context.author}**!",
-                    color=0x9C84EF
+                    color=0x9C84EF,
                 )
-                embed.add_field(
-                    name="Reason:",
-                    value=reason
-                )
+                embed.add_field(name="Reason:", value=reason)
                 await context.send(embed=embed)
                 try:
                     await member.send(
@@ -58,7 +56,7 @@ class Moderation(commands.Cog, name="moderation-normal"):
                 embed = disnake.Embed(
                     title="Error!",
                     description="An error occurred while trying to kick the user. Make sure my role is above the role of the user you want to kick.",
-                    color=0xE02B2B
+                    color=0xE02B2B,
                 )
                 await context.send(embed=embed)
 
@@ -68,21 +66,22 @@ class Moderation(commands.Cog, name="moderation-normal"):
     )
     @commands.has_permissions(manage_nicknames=True)
     @checks.not_blacklisted()
-    async def nick(self, context: Context, member: disnake.Member, *,
-                   nickname: str = None) -> None:
+    async def nick(
+        self, context: Context, member: disnake.Member, *, nickname: str = None
+    ) -> None:
         try:
             await member.edit(nick=nickname)
             embed = disnake.Embed(
                 title="Changed Nickname!",
                 description=f"**{member}'s** new nickname is **{nickname}**!",
-                color=0x9C84EF
+                color=0x9C84EF,
             )
             await context.send(embed=embed)
         except:
             embed = disnake.Embed(
                 title="Error!",
                 description="An error occurred while trying to change the nickname of the user. Make sure my role is above the role of the user you want to change the nickname.",
-                color=0xE02B2B
+                color=0xE02B2B,
             )
             await context.send(embed=embed)
 
@@ -92,30 +91,29 @@ class Moderation(commands.Cog, name="moderation-normal"):
     )
     @commands.has_permissions(ban_members=True)
     @checks.not_blacklisted()
-    async def ban(self, context: Context, member: disnake.Member, *,
-                  reason: str = "Not specified") -> None:
+    async def ban(
+        self, context: Context, member: disnake.Member, *, reason: str = "Not specified"
+    ) -> None:
         try:
             if member.guild_permissions.administrator:
                 embed = disnake.Embed(
                     title="Error!",
                     description="User has Admin permissions.",
-                    color=0xE02B2B
+                    color=0xE02B2B,
                 )
                 await context.send(embed=embed)
             else:
                 embed = disnake.Embed(
                     title="User Banned!",
                     description=f"**{member}** was banned by **{context.author}**!",
-                    color=0x9C84EF
+                    color=0x9C84EF,
                 )
-                embed.add_field(
-                    name="Reason:",
-                    value=reason
-                )
+                embed.add_field(name="Reason:", value=reason)
                 await context.send(embed=embed)
                 try:
                     await member.send(
-                        f"You were banned by **{context.author}**!\nReason: {reason}")
+                        f"You were banned by **{context.author}**!\nReason: {reason}"
+                    )
                 except disnake.Forbidden:
                     # Couldn't send a message in the private messages of the user
                     pass
@@ -124,7 +122,7 @@ class Moderation(commands.Cog, name="moderation-normal"):
             embed = disnake.Embed(
                 title="Error!",
                 description="An error occurred while trying to ban the user. Make sure my role is above the role of the user you want to ban.",
-                color=0xE02B2B
+                color=0xE02B2B,
             )
             await context.send(embed=embed)
 
@@ -134,25 +132,25 @@ class Moderation(commands.Cog, name="moderation-normal"):
     )
     @commands.has_permissions(manage_messages=True)
     @checks.not_blacklisted()
-    async def warn(self, context: Context, member: disnake.Member, *,
-                   reason: str = "Not specified") -> None:
+    async def warn(
+        self, context: Context, member: disnake.Member, *, reason: str = "Not specified"
+    ) -> None:
         embed = disnake.Embed(
             title="User Warned!",
             description=f"**{member}** was warned by **{context.author}**!",
-            color=0x9C84EF
+            color=0x9C84EF,
         )
-        embed.add_field(
-            name="Reason:",
-            value=reason
-        )
+        embed.add_field(name="Reason:", value=reason)
         await context.send(embed=embed)
         try:
             await member.send(
-                f"You were warned by **{context.author}**!\nReason: {reason}")
+                f"You were warned by **{context.author}**!\nReason: {reason}"
+            )
         except disnake.Forbidden:
             # Couldn't send a message in the private messages of the user
             await context.send(
-                f"{member.mention}, you were warned by **{context.author}**!\nReason: {reason}")
+                f"{member.mention}, you were warned by **{context.author}**!\nReason: {reason}"
+            )
 
     @commands.command(
         name="purge",
@@ -167,7 +165,7 @@ class Moderation(commands.Cog, name="moderation-normal"):
             embed = disnake.Embed(
                 title="Error!",
                 description=f"`{amount}` is not a valid number.",
-                color=0xE02B2B
+                color=0xE02B2B,
             )
             await context.send(embed=embed)
             return
@@ -175,7 +173,7 @@ class Moderation(commands.Cog, name="moderation-normal"):
             embed = disnake.Embed(
                 title="Error!",
                 description=f"`{amount}` is not a valid number.",
-                color=0xE02B2B
+                color=0xE02B2B,
             )
             await context.send(embed=embed)
             return
@@ -183,34 +181,30 @@ class Moderation(commands.Cog, name="moderation-normal"):
         embed = disnake.Embed(
             title="Chat Cleared!",
             description=f"**{context.author}** cleared **{len(purged_messages)}** messages!",
-            color=0x9C84EF
+            color=0x9C84EF,
         )
         await context.send(embed=embed)
 
     @commands.command(
         name="hackban",
-        description="Bans a user without the user having to be in the server."
+        description="Bans a user without the user having to be in the server.",
     )
-    async def hackban(self, context: Context, user_id: int, *,
-                      reason: str) -> None:
+    async def hackban(self, context: Context, user_id: int, *, reason: str) -> None:
         try:
             await self.bot.http.ban(user_id, context.guild.id, reason=reason)
             user = await self.bot.get_or_fetch_user(user_id)
             embed = disnake.Embed(
                 title="User Banned!",
                 description=f"**{user} (ID: {user_id}) ** was banned by **{context.author}**!",
-                color=0x9C84EF
+                color=0x9C84EF,
             )
-            embed.add_field(
-                name="Reason:",
-                value=reason
-            )
+            embed.add_field(name="Reason:", value=reason)
             await context.send(embed=embed)
         except:
             embed = disnake.Embed(
                 title="Error!",
                 description="An error occurred while trying to ban the user. Make sure ID is an existing ID that belongs to a user.",
-                color=0xE02B2B
+                color=0xE02B2B,
             )
             await context.send(embed=embed)
 

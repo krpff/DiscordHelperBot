@@ -29,7 +29,8 @@ class Lyceum(commands.Cog, name="template-normal"):
     async def randomcat(self, context: Context) -> None:
         async with aiohttp.ClientSession() as session:
             async with session.get(
-                    "https://api.thecatapi.com/v1/images/search") as request:
+                "https://api.thecatapi.com/v1/images/search"
+            ) as request:
                 if request.status == 200:
                     data = await request.json()
                     await context.send(data[0]["url"])
@@ -37,7 +38,7 @@ class Lyceum(commands.Cog, name="template-normal"):
                     embed = disnake.Embed(
                         title="Error!",
                         description="There is something wrong with the API, please try again later",
-                        color=0xE02B2B
+                        color=0xE02B2B,
                     )
                     await context.send(embed=embed)
 
@@ -50,8 +51,7 @@ class Lyceum(commands.Cog, name="template-normal"):
         try:
             secondint = int(seconds)
             if secondint > 3600:
-                await context.send(
-                    "Maximum timer is 1 hour. Please try again.")
+                await context.send("Maximum timer is 1 hour. Please try again.")
             if secondint <= 0:
                 await context.send("Numbers must be above 0.")
             message = await context.send("*Timer: {seconds} seconds*")
@@ -64,6 +64,7 @@ class Lyceum(commands.Cog, name="template-normal"):
             await context.send(f"{context.author.mention} Your countdown Has ended!")
         except ValueError:
             await context.send("Must be a number!")
+
 
 def setup(bot):
     bot.add_cog(Lyceum(bot))

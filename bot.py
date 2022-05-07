@@ -72,7 +72,8 @@ async def on_command_completion(context: Context) -> None:
     split = full_command_name.split(" ")
     executed_command = str(split[0])
     print(
-        f"Executed {executed_command} command in {context.guild.name} (ID: {context.message.guild.id}) by {context.message.author} (ID: {context.message.author.id})")
+        f"Executed {executed_command} command in {context.guild.name} (ID: {context.message.guild.id}) by {context.message.author} (ID: {context.message.author.id})"
+    )
 
 
 @bot.event
@@ -84,22 +85,21 @@ async def on_command_error(context: Context, error) -> None:
         embed = disnake.Embed(
             title="Hey, please slow down!",
             description=f"You can use this command again in {f'{round(hours)} hours' if round(hours) > 0 else ''} {f'{round(minutes)} minutes' if round(minutes) > 0 else ''} {f'{round(seconds)} seconds' if round(seconds) > 0 else ''}.",
-            color=0xE02B2B
+            color=0xE02B2B,
         )
         await context.send(embed=embed)
     elif isinstance(error, commands.MissingPermissions):
         embed = disnake.Embed(
             title="Error!",
-            description="You are missing the permission(s) `" + ", ".join(
-                error.missing_permissions) + "` to execute this command!",
-            color=0xE02B2B
+            description="You are missing the permission(s) `"
+            + ", ".join(error.missing_permissions)
+            + "` to execute this command!",
+            color=0xE02B2B,
         )
         await context.send(embed=embed)
     elif isinstance(error, commands.MissingRequiredArgument):
         embed = disnake.Embed(
-            title="Error!",
-            description=str(error).capitalize(),
-            color=0xE02B2B
+            title="Error!", description=str(error).capitalize(), color=0xE02B2B
         )
         await context.send(embed=embed)
     raise error
