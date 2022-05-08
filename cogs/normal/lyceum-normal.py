@@ -95,7 +95,7 @@ class Lyceum(commands.Cog, name="template-normal"):
             "https://api.openweathermap.org/data/2.5/weather",
             params={
                 "q": city,
-                "appid": "2bfbdee2dcdb05262c6f58bfe4949cba",
+                "appid": config["openweathermap_api_key"],
             },
         ).json()
         print(res)
@@ -125,7 +125,6 @@ class Lyceum(commands.Cog, name="template-normal"):
                 f"*Gusts {res['wind']['gust']} m/s*",
                 inline=False,
             )
-            print(200)
             embed.set_footer(text=f"Requested by {context.author}")
             await context.send(embed=embed)
 

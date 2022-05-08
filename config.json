@@ -3,6 +3,6 @@
   "token": "YOUR_BOT_TOKEN_HERE",
   "permissions": YOUR_BOT_PERMISSIONS_HERE,
   "application_id": YOUR_APPLICATION_ID_HERE,
-  "owners": [OWNERS]
-
+  "owners": [OWNERS],
+  "openweathermap_api_key": "OPEN_WEATHER_MAP_API_KEY"
 }
