@@ -53,7 +53,10 @@ class General(commands.Cog, name="general-normal"):
         embed = disnake.Embed(
             title="**Server Name:**", description=f"{context.guild}", color=0x9C84EF
         )
-        embed.set_thumbnail(url=context.guild.icon.url)
+        try:
+            embed.set_thumbnail(url=context.guild.icon.url)
+        except:
+            pass
         embed.add_field(name="Server ID", value=context.guild.id)
         embed.add_field(name="Member Count", value=context.guild.member_count)
         embed.add_field(

@@ -95,7 +95,7 @@ class Lyceum(commands.Cog, name="template-normal"):
             "https://api.openweathermap.org/data/2.5/weather",
             params={
                 "q": city,
-                "appid": config["openweathermap_api_key"],
+                "appid": config["open_weather_map_api_key"],
             },
         ).json()
         print(res)
@@ -114,15 +114,15 @@ class Lyceum(commands.Cog, name="template-normal"):
             )
             embed.add_field(
                 name=":thermometer: Temperature",
-                value=f"**{res['main']['temp']}°C**\n"
-                f"*Feels like {res['main']['feels_like']}°C*",
+                value=f"**{int(res['main']['temp']) - 273}°C**\n"
+                f"*Feels like {int(res['main']['feels_like'] - 273)}°C*",
                 inline=False,
             )
             embed.add_field(
                 name=":cloud_tornado: Wind",
                 value=f"**Speed {res['wind']['speed']} m/s**\n"
                 f"**Direction {res['wind']['deg']}°**\n"
-                f"*Gusts {res['wind']['gust']} m/s*",
+                f"**Gusts {res['wind']['gust']} m/s**",
                 inline=False,
             )
             embed.set_footer(text=f"Requested by {context.author}")
