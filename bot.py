@@ -19,7 +19,7 @@ else:
         config = json.load(file)
 
 
-intents = disnake.Intents.default()
+intents = disnake.Intents.all()
 
 bot = Bot(command_prefix=config["prefix"], intents=intents)
 
